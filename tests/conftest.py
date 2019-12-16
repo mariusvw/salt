@@ -922,6 +922,10 @@ def session_master_default_options(request, session_root_dir):
         opts['returner_dirs'].append(os.path.join(RUNTIME_VARS.FILES, 'returners'))
         opts['event_return'] = 'runtests_noop'
 
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
+
         return opts
 
 
@@ -1014,6 +1018,10 @@ def session_minion_default_options(request, tempdir):
         opts['aliases.file'] = tempdir.join('aliases').strpath
         opts['transport'] = request.config.getoption('--transport')
 
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
+
         return opts
 
 
@@ -1088,6 +1096,10 @@ def session_syndic_master_default_options(request, session_root_dir):
         opts['aliases.file'] = session_root_dir.join('aliases').strpath
         opts['transport'] = request.config.getoption('--transport')
 
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
+
         return opts
 
 
@@ -1099,6 +1111,10 @@ def session_syndic_minion_default_options(request, session_root_dir):
         opts['hosts.file'] = session_root_dir.join('hosts').strpath
         opts['aliases.file'] = session_root_dir.join('aliases').strpath
         opts['transport'] = request.config.getoption('--transport')
+
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
 
         return opts
 
@@ -1147,6 +1163,10 @@ def session_secondary_minion_default_options(request, tempdir):
         opts['aliases.file'] = tempdir.join('aliases').strpath
         opts['transport'] = request.config.getoption('--transport')
 
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
+
         return opts
 
 
@@ -1167,6 +1187,10 @@ def session_master_of_masters_default_options(request, tempdir):
         opts['hosts.file'] = tempdir.join('hosts').strpath
         opts['aliases.file'] = tempdir.join('aliases').strpath
         opts['transport'] = request.config.getoption('--transport')
+
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
 
         return opts
 
@@ -1233,6 +1257,10 @@ def session_syndic_master_default_options(request, tempdir):
         opts['aliases.file'] = tempdir.join('aliases').strpath
         opts['transport'] = request.config.getoption('--transport')
 
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
+
         return opts
 
 
@@ -1245,6 +1273,10 @@ def session_syndic_default_options(request, tempdir):
         opts['aliases.file'] = tempdir.join('aliases').strpath
         opts['transport'] = request.config.getoption('--transport')
 
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
+
         return opts
 
 
@@ -1256,6 +1288,10 @@ def session_proxy_default_options(request, tempdir):
         opts['hosts.file'] = tempdir.join('hosts').strpath
         opts['aliases.file'] = tempdir.join('aliases').strpath
         opts['transport'] = request.config.getoption('--transport')
+
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
 
         return opts
 

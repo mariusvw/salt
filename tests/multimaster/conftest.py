@@ -15,6 +15,7 @@ import pytest
 import psutil
 
 import salt.utils.files
+import salt.ext.six as six
 from salt.serializers import yaml
 from salt.utils.immutabletypes import freeze
 from tests.support.runtests import RUNTIME_VARS
@@ -129,6 +130,10 @@ def session_mm_master_default_options(session_master_default_options):
         opts = session_master_default_options.copy()
         if config_file_opts:
             opts.update(config_file_opts)
+
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
         return opts
 
 
@@ -324,6 +329,10 @@ def session_mm_secondary_master_default_options(session_master_default_options):
     opts = session_master_default_options.copy()
     with salt.utils.files.fopen(os.path.join(RUNTIME_VARS.CONF_DIR, 'mm_sub_master')) as rfh:
         opts.update(yaml.deserialize(rfh.read()))
+
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
         return opts
 
 
@@ -469,6 +478,10 @@ def session_mm_secondary_minion_default_options(session_secondary_minion_default
     opts = session_secondary_minion_default_options.copy()
     with salt.utils.files.fopen(os.path.join(RUNTIME_VARS.CONF_DIR, 'mm_sub_minion')) as rfh:
         opts.update(yaml.deserialize(rfh.read()))
+
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
     return opts
 
 
@@ -593,6 +606,10 @@ def session_mm_minion_default_options(session_minion_default_options):
     opts = session_minion_default_options.copy()
     with salt.utils.files.fopen(os.path.join(RUNTIME_VARS.CONF_DIR, 'mm_sub_minion')) as rfh:
         opts.update(yaml.deserialize(rfh.read()))
+
+        if six.PY3:
+            # Hack to disable multiprocessing logging under Py3
+            opts['log_forwarding_consumer'] = True
     return opts
 
 
